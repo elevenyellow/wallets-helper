@@ -1,0 +1,23 @@
+{
+    "name": "@elevenyellow.com/wallets-helpers",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/elevenyellow/wallets-helpers.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/elevenyellow/wallets-helpers/issues"
+    },
+    "homepage": "https://github.com/elevenyellow/wallets-helpers#readme",
+    "dependencies": {
+        "bip39crypto": "^2.5.0",
+        "bitcoinjs-lib": "^3.3.2"
+    }
+}
