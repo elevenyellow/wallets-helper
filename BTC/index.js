@@ -2,31 +2,34 @@ const crypto = require('crypto')
 const Bitcoin = require('bitcoinjs-lib')
 const bip39 = require('bip39crypto')
 
+const networks = {
+    mainnet: Bitcoin.networks.bitcoin,
+    testnet: Bitcoin.networks.testnet
+}
+
 function getRandomMnemonic({ words } = { words: 24 }) {
     const strength = ((words / 3) * 32) / 8
     const entropy = crypto.randomBytes(strength)
     return bip39.entropyToMnemonic(entropy)
 }
 
-function getSeedFromMnemonic({ mnemonic, passphase = '', network }) {
+function getSeedFromMnemonic({ mnemonic, network, passphase = '' }) {
     const mnemonic_hex = bip39.mnemonicToSeed(mnemonic, passphase)
     return Bitcoin.HDNode.fromSeedHex(mnemonic_hex, network)
 }
 
-function getExtendedPublicKeyFromSeed({ seed }) {
-    return seed.neutered().toBase58()
-}
-
-function getExtendedPrivateKeyFromSeed({ seed }) {
-    return seed.toBase58()
-}
-
-function getSeedFromExtended({ extended, network }) {
-    return Bitcoin.HDNode.fromBase58(extended, network)
+function getPrivateKeyFromSeed({ seed }) {
+    const keypair = seed.keyPair
+    return keypair.toWIF().toString()
 }
 
 function getAddressFromSeed({ seed, network, segwit = true }) {
     const keypair = seed.keyPair
+    return getAddressFromKeypair({ keypair, network, segwit })
+}
+
+function getAddressFromPrivateKey({ private_key, network, segwit }) {
+    const keypair = Bitcoin.ECPair.fromWIF(private_key, network)
     return getAddressFromKeypair({ keypair, network, segwit })
 }
 
@@ -47,16 +50,6 @@ function getAddressFromKeypair({ keypair, network, segwit = true }) {
     }
 }
 
-function getAddressFromPrivateKey({ private_key, network, segwit }) {
-    const keypair = Bitcoin.ECPair.fromWIF(private_key, network)
-    return getAddressFromKeypair({ keypair, network, segwit })
-}
-
-function getPrivateKeyFromSeed({ seed }) {
-    const keypair = seed.keyPair
-    return keypair.toWIF().toString()
-}
-
 function derivePath({ seed, path }) {
     return seed.derivePath(path)
 }
@@ -65,17 +58,28 @@ function deriveIndex({ seed, index }) {
     return seed.derive(index)
 }
 
+function getExtendedPublicKeyFromSeed({ seed }) {
+    return seed.neutered().toBase58()
+}
+
+function getExtendedPrivateKeyFromSeed({ seed }) {
+    return seed.toBase58()
+}
+
+function getSeedFromExtended({ extended, network }) {
+    return Bitcoin.HDNode.fromBase58(extended, network)
+}
+
 module.exports = {
-    networks: Bitcoin.networks,
+    networks,
     getRandomMnemonic,
     getSeedFromMnemonic,
+    getPrivateKeyFromSeed,
+    getAddressFromSeed,
+    getAddressFromPrivateKey,
+    derivePath,
+    deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended,
-    getAddressFromSeed,
-    getAddressFromKeypair,
-    getAddressFromPrivateKey,
-    getPrivateKeyFromSeed,
-    derivePath,
-    deriveIndex
+    getSeedFromExtended
 }
