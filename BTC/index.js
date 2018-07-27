@@ -27,6 +27,10 @@ function getSeedFromExtended({ extended, network }) {
 
 function getAddressFromSeed({ seed, network, segwit = true }) {
     const keypair = seed.keyPair
+    return getAddressFromKeypair({ keypair, network, segwit })
+}
+
+function getAddressFromKeypair({ keypair, network, segwit = true }) {
     if (!segwit) {
         return keypair.getAddress().toString()
     } else {
@@ -43,28 +47,35 @@ function getAddressFromSeed({ seed, network, segwit = true }) {
     }
 }
 
+function getAddressFromPrivateKey({ private_key, network, segwit }) {
+    const keypair = Bitcoin.ECPair.fromWIF(private_key, network)
+    return getAddressFromKeypair({ keypair, network, segwit })
+}
+
 function getPrivateKeyFromSeed({ seed }) {
     const keypair = seed.keyPair
     return keypair.toWIF().toString()
 }
 
-network = Bitcoin.networks.bitcoin
-mnemonic = getRandomMnemonic()
-mnemonic =
-    'property bone kite yard announce enjoy legal load raven praise hurdle point'
-seed = getSeedFromMnemonic({ mnemonic, network })
-seed = seed.derivePath("m/44'/0'/0'/0")
-extendedprv = getExtendedPrivateKeyFromSeed({ seed })
-extendedpub = getExtendedPublicKeyFromSeed({ seed })
-seed = getSeedFromExtended({
-    extended: extendedprv,
-    network
-})
-seed = seed.derive(0)
+function derivePath({ seed, path }) {
+    return seed.derivePath(path)
+}
 
-console.log(mnemonic)
-console.log(extendedprv)
-console.log(extendedpub)
-console.log(getPrivateKeyFromSeed({ seed }))
-console.log(getAddressFromSeed({ seed, network }))
-console.log(getAddressFromSeed({ seed, segwit: false }))
+function deriveIndex({ seed, index }) {
+    return seed.derive(index)
+}
+
+module.exports = {
+    networks: Bitcoin.networks,
+    getRandomMnemonic,
+    getSeedFromMnemonic,
+    getExtendedPublicKeyFromSeed,
+    getExtendedPrivateKeyFromSeed,
+    getSeedFromExtended,
+    getAddressFromSeed,
+    getAddressFromKeypair,
+    getAddressFromPrivateKey,
+    getPrivateKeyFromSeed,
+    derivePath,
+    deriveIndex
+}
