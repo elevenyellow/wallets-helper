@@ -4,7 +4,9 @@ const bip39 = require('bip39crypto')
 
 const networks = {
     mainnet: Bitcoin.networks.bitcoin,
-    testnet: Bitcoin.networks.testnet
+    testnet: Bitcoin.networks.testnet,
+    0: Bitcoin.networks.bitcoin,
+    1: Bitcoin.networks.testnet
 }
 
 function getRandomMnemonic({ words } = { words: 24 }) {

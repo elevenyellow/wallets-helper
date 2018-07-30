@@ -36,7 +36,19 @@ With this we can recover our seed at any time and generate multiple addresses. W
 
 # API
 
+### getCoin({ symbol }) : object
+
+### getNetwork({ symbol, [name] }) : object
+
 ## /BTC
+
+### networks
+
+```js
+import { networks } from '@elevenyellow.com/wallets-helpers/BTC'
+const mainnet = networks.mainnet // Bitcoin.networks.bitcoin
+const testnet = networks.testnet // Bitcoin.networks.testnet
+```
 
 ### getRandomMnemonic({ [words] }) : mnemonic
 
@@ -53,7 +65,7 @@ mnemonic:`string`
 #### Example
 
 ```js
-import { getRandomMnemonic } from 'wallets-helpers/BTC'
+import { getRandomMnemonic } from '@elevenyellow.com/wallets-helpers/BTC'
 const mnemonic = getRandomMnemonic({ words: 12 })
 ```
 
@@ -78,7 +90,7 @@ import {
     networks,
     getRandomMnemonic,
     getSeedFromMnemonic
-} from 'wallets-helpers/BTC'
+} from '@elevenyellow.com/wallets-helpers/BTC'
 const network = networks.mainnet
 const mnemonic = getRandomMnemonic({ words: 12 })
 const seed = getSeedFromMnemonic({ mnemonic, network })
