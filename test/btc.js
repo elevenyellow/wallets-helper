@@ -61,10 +61,10 @@ test('getAddressFromPrivateKey', async t => {
 
 test('derivePath', async t => {
     const seed = getSeedFromMnemonic({ mnemonic, network })
-    const seed_rerived = derivePath({ seed, path: "m/44'/0'/0'/0/0" })
+    const seed_rerived = derivePath({ seed, path: "m/44'/0'/0'/0/25" })
     t.deepEqual(Object.keys(seed), Object.keys(seed_rerived))
     const private_key = getPrivateKeyFromSeed({ seed: seed_rerived })
-    t.is(private_key, 'L1aaWnFRYRzhV9dJXeJ7DmqAR1EGswiVW1dcyRVbFNQvpB5tbGjU')
+    t.is(private_key, 'L2PUoVDh2hpKzfRGcbuQW9NHssEBbX7gEuWobWhzmqan2iKVhtcL')
 })
 
 test('deriveIndex', async t => {
