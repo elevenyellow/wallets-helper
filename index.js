@@ -2,11 +2,11 @@ const requires = {}
 
 function getCoin({ symbol }) {
     symbol = symbol.toUpperCase()
-    if (requires[symbol] === undefined) {
+    if (!requires.hasOwnProperty(symbol)) {
         try {
             requires[symbol] = require(`./${symbol}`)
         } catch (e) {
-            throw `${symbol} not found`
+            throw `Symbol ${symbol} not found`
         }
     }
     return requires[symbol]

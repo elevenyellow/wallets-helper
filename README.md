@@ -38,7 +38,7 @@ With this we can recover our seed at any time and generate multiple addresses. W
 
 ### getCoin({ symbol }) : object
 
-### getNetwork({ symbol, [name] }) : object
+### getNetwork({ symbol, [name] }) : network
 
 ## /BTC
 
