@@ -40,6 +40,8 @@ With this we can recover our seed at any time and generate multiple addresses. W
 
 ### getNetwork({ symbol, [name] }) : network
 
+### getDerivationPath({ symbol, [name], [segwit=true] }) : network
+
 ## /BTC
 
 ### networks
