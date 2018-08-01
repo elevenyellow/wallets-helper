@@ -1,5 +1,5 @@
 const test = require('ava')
-const { getCoin, getNetwork } = require('../')
+const { getCoin, getNetwork, getDerivationPath } = require('../')
 
 test('getCoin', async t => {
     const btc1 = getCoin({ symbol: 'btc' })
@@ -18,15 +18,15 @@ test('getCoin not found', async t => {
 test('getNetwork default', async t => {
     const { networks } = require('../BTC')
     const network = getNetwork({ symbol: 'btc' })
-    t.is(networks.mainnet, network)
+    t.is(networks[0].config, network)
 })
 
 test('getNetwork', async t => {
     const { networks } = require('../BTC')
     const network_index = getNetwork({ symbol: 'btc', name: 0 })
     const network_name = getNetwork({ symbol: 'btc', name: 'MainNet' })
-    t.is(networks.mainnet, network_index)
-    t.is(networks.mainnet, network_name)
+    t.is(networks[0].config, network_index)
+    t.is(networks[0].config, network_name)
 })
 
 test('getNetwork not found symbol', async t => {
@@ -46,6 +46,32 @@ test('getNetwork testnet', async t => {
     const { networks } = require('../BTC')
     const network_index = getNetwork({ symbol: 'btc', name: 1 })
     const network_name = getNetwork({ symbol: 'btc', name: 'TESTNET' })
-    t.is(networks.testnet, network_index)
-    t.is(networks.testnet, network_name)
+    t.is(networks[1].config, network_index)
+    t.is(networks[1].config, network_name)
+})
+
+test('getDerivationPath default', async t => {
+    const { networks } = require('../BTC')
+    const network = getDerivationPath({ symbol: 'btc' })
+    t.is(networks[0].path.true, network)
+})
+
+test('getDerivationPath', async t => {
+    const { networks } = require('../BTC')
+    const network_index = getDerivationPath({ symbol: 'btc', name: 0 })
+    const network_name = getDerivationPath({ symbol: 'btc', name: 'MainNet' })
+    const network_segwit = getDerivationPath({
+        symbol: 'btc',
+        name: 'MainNet',
+        segwit: false
+    })
+    const network_segwitnotfound = getDerivationPath({
+        symbol: 'btc',
+        name: 'testnet',
+        segwit: 'dadadada'
+    })
+    t.is(networks[0].path.true, network_index)
+    t.is(networks[0].path.true, network_name)
+    t.is(networks[0].path.false, network_segwit)
+    t.is(networks[1].path.true, network_segwitnotfound)
 })

@@ -2,12 +2,24 @@ const crypto = require('crypto')
 const Bitcoin = require('bitcoinjs-lib')
 const bip39 = require('bip39crypto')
 
-const networks = {
-    mainnet: Bitcoin.networks.bitcoin,
-    testnet: Bitcoin.networks.testnet,
-    0: Bitcoin.networks.bitcoin,
-    1: Bitcoin.networks.testnet
-}
+const networks = [
+    {
+        name: 'mainnet',
+        config: Bitcoin.networks.bitcoin,
+        path: {
+            false: "m/44'/0'/0'/0",
+            true: "m/49'/0'/0'/0" // segwit
+        }
+    },
+    {
+        name: 'testnet',
+        config: Bitcoin.networks.testnet,
+        path: {
+            false: "m/44'/1'/0'/0",
+            true: "m/49'/1'/0'/0" // segwit
+        }
+    }
+]
 
 function getRandomMnemonic({ words } = { words: 24 }) {
     const strength = ((words / 3) * 32) / 8
