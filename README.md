@@ -38,19 +38,17 @@ With this we can recover our seed at any time and generate multiple addresses. W
 
 ### getCoin({ symbol }) : object
 
-### getNetwork({ symbol, [name] }) : network
-
-### getDerivationPath({ symbol, [name], [segwit=true] }) : network
-
-## /BTC
-
-### networks
+### getNetwork({ symbol, [name=mainnet] }) : network
 
 ```js
 import { getNetwork } from '@elevenyellow.com/wallets-helpers'
 const mainnet = getNetwork({symbol:'BTC'}) // Bitcoin.networks.bitcoin
 const testnet =  = getNetwork({symbol:'BTC', name:'testnet'}) // Bitcoin.networks.testnet
 ```
+
+### getDerivationPath({ symbol, [name=mainnet], [segwit=true] }) : string
+
+## /BTC
 
 ### getRandomMnemonic({ [words] }) : mnemonic
 
