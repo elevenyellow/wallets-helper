@@ -1,7 +1,7 @@
 const Bitcoin = require('bitcoinjs-lib')
 const createKeccakHash = require('keccak')
-const ethereumJsHdKey = require('ethereumjs-wallet/hdkey')
-const bs58check = require('bs58check')
+const secp256k1 = require('secp256k1')
+
 const {
     addHexPrefix,
     privateToAddress
@@ -44,12 +44,24 @@ function getPrivateKeyFromSeed({ seed }) {
 }
 
 function getAddressFromSeed({ seed }) {
-    const xpub = getExtendedPublicKeyFromSeed({ seed })
-    const address = ethereumJsHdKey
-        .fromExtendedKey(xpub)
-        .getWallet()
-        .getAddressString()
+    // https://github.com/bitcoinjs/bitcoinjs-lib/issues/1060
+    let pubkey = seed.keyPair.getPublicKeyBuffer()
+    if (pubkey.length !== 64)
+        pubKey = secp256k1.publicKeyConvert(pubkey, false).slice(1)
+    const address = createKeccakHash('keccak256')
+        .update(pubKey)
+        .digest()
+        .slice(-20)
+        .toString('hex')
+
     return toChecksumAddress(address)
+    // const ethereumJsHdKey = require('ethereumjs-wallet/hdkey')
+    // const xpub = getExtendedPublicKeyFromSeed({ seed })
+    // const address = ethereumJsHdKey
+    //     .fromExtendedKey(xpub)
+    //     .getWallet()
+    //     .getAddressString()
+    // return toChecksumAddress(address)
 }
 
 function getAddressFromPrivateKey({ private_key }) {
