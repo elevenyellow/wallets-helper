@@ -10,7 +10,8 @@ const {
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended
+    getSeedFromExtended,
+    isAddress
 } = require('../ETH')
 
 const network = networks.mainnet
@@ -118,4 +119,16 @@ test('getExtendedPublicKeyFromSeed', async t => {
     }
     t.is(typeof xpub, 'string')
     t.is(address, '0x3398D7126b72AF327dd299F8E3e77E6E2A9a884f')
+})
+
+test('isAddress', async t => {
+    // mainnet
+    t.is(isAddress('0xEcCab7Ac3e7441857DE4EffbE54413c08b6dd36B'), true)
+    t.is(isAddress('0xeccab7ac3e7441857de4effbe54413c08b6dd36b'), true)
+    // fails
+    t.is(isAddress('0xEcCab7Ac3e7441857DE4EffbE54413c08b6dd36'), false)
+    t.is(isAddress('EcCab7Ac3e7441857DE4EffbE54413c08b6dd36B'), false)
+    // others
+    t.is(isAddress('LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n'), false)
+    t.is(isAddress('38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb'), false)
 })

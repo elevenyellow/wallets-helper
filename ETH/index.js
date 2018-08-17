@@ -4,8 +4,8 @@ const secp256k1 = require('secp256k1')
 
 const {
     addHexPrefix,
-    privateToAddress
-    // isValidAddress,
+    privateToAddress,
+    isValidAddress
     // privateToPublic,
     // sha3
 } = require('ethereumjs-util')
@@ -68,6 +68,10 @@ function getAddressFromPrivateKey({ private_key }) {
     return toChecksumAddress(privateToAddress(private_key).toString('hex'))
 }
 
+function isAddress(address) {
+    return isValidAddress(address) // /^(0x)?[0-9a-fA-F]{40}$/.test(string)
+}
+
 module.exports = {
     networks,
     getRandomMnemonic,
@@ -79,7 +83,8 @@ module.exports = {
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended
+    getSeedFromExtended,
+    isAddress
 }
 
 // Private

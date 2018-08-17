@@ -84,6 +84,27 @@ function getSeedFromExtended({ extended, network }) {
     return Bitcoin.HDNode.fromBase58(extended, network)
 }
 
+function isAddress(address) {
+    return (
+        validateAddress({ address, network: networks[0].config }) ||
+        validateAddress({ address, network: networks[1].config })
+    )
+}
+
+function validateAddress({ address, network, segwit }) {
+    try {
+        const { version } = Bitcoin.address.fromBase58Check(address)
+        if (segwit === true) {
+            return version === network.scriptHash
+        } else if (segwit === false) {
+            return version === network.pubKeyHash
+        }
+        return version === network.pubKeyHash || version === network.scriptHash
+    } catch (e) {
+        return false
+    }
+}
+
 module.exports = {
     networks,
     getRandomMnemonic,
@@ -95,5 +116,7 @@ module.exports = {
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended
+    getSeedFromExtended,
+    isAddress,
+    validateAddress
 }

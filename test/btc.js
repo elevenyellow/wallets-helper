@@ -10,10 +10,14 @@ const {
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended
+    getSeedFromExtended,
+    isAddress,
+    validateAddress
 } = require('../BTC')
 
-const network = networks.mainnet
+const testnet = networks[1].config
+const mainnet = networks[0].config
+const network = mainnet
 const mnemonic =
     'property bone kite yard announce enjoy legal load raven praise hurdle point'
 
@@ -108,4 +112,70 @@ test('getExtendedPublicKeyFromSeed', async t => {
     }
     t.is(typeof xpub, 'string')
     t.is(address, '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb')
+})
+
+test('isAddress', async t => {
+    // mainnet
+    t.is(isAddress('15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb'), true)
+    t.is(isAddress('38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb'), true) // segwit
+    // testnet
+    t.is(isAddress('n3us2VsMjMcepehnDQXGB8pSXJ5XkSbsRZ'), true)
+    t.is(isAddress('2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh'), true) // segwit
+    // fails
+    t.is(isAddress('LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n'), false) // ltc
+    t.is(isAddress('dadada'), false)
+})
+
+test('validateAddress', async t => {
+    t.is(
+        validateAddress({
+            address: '15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb',
+            network: mainnet,
+            segwit: false
+        }),
+        true
+    )
+    t.is(
+        validateAddress({
+            address: '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb',
+            network: mainnet,
+            segwit: true
+        }),
+        true
+    )
+    t.is(
+        validateAddress({
+            address: 'n3us2VsMjMcepehnDQXGB8pSXJ5XkSbsRZ',
+            network: testnet,
+            segwit: false
+        }),
+        true
+    )
+    t.is(
+        validateAddress({
+            address: '2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh',
+            network: testnet,
+            segwit: true
+        }),
+        true
+    )
+
+    // fails
+    t.is(
+        validateAddress({
+            address: '15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb',
+            network: mainnet,
+            segwit: true
+        }),
+        false
+    )
+
+    t.is(
+        validateAddress({
+            address: '2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh',
+            network: testnet,
+            segwit: false
+        }),
+        false
+    )
 })

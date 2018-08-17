@@ -241,3 +241,15 @@ const xprv = getExtendedPrivateKeyFromSeed({ seed })
 const seed2 = getSeedFromExtended({ extended: xprv })
 t.deepEqual(seed, seed2) // true
 ```
+
+### isAddress(address) : boolean
+
+Used to create a new random mnemonic.
+
+#### Params
+
+-   address:`string`
+
+#### Returns
+
+`boolean`
