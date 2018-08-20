@@ -9,15 +9,6 @@ const {
     // privateToPublic,
     // sha3
 } = require('ethereumjs-util')
-const {
-    getRandomMnemonic,
-    getSeedFromMnemonic,
-    derivePath,
-    deriveIndex,
-    getExtendedPublicKeyFromSeed,
-    getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended
-} = require('../BTC')
 
 const networks = [
     {
@@ -74,16 +65,9 @@ function isAddress(address) {
 
 module.exports = {
     networks,
-    getRandomMnemonic,
-    getSeedFromMnemonic,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,
-    derivePath,
-    deriveIndex,
-    getExtendedPublicKeyFromSeed,
-    getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended,
     isAddress
 }
 

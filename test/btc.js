@@ -1,19 +1,22 @@
 const test = require('ava')
 const {
-    networks,
     getRandomMnemonic,
     getSeedFromMnemonic,
-    getPrivateKeyFromSeed,
-    getAddressFromSeed,
-    getAddressFromPrivateKey,
     derivePath,
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended,
+    getSeedFromExtended
+} = require('../')
+const {
+    networks,
+    getPrivateKeyFromSeed,
+    getAddressFromSeed,
+    getAddressFromPrivateKey,
     isAddress,
     validateAddress
 } = require('../BTC')
+
 
 const testnet = networks[1].config
 const mainnet = networks[0].config

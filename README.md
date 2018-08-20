@@ -48,7 +48,6 @@ const testnet =  = getNetwork({symbol:'BTC', name:'testnet'}) // Bitcoin.network
 
 ### getDerivationPath({ symbol, [name=mainnet], [segwit=true] }) : string
 
-## /BTC
 
 ### getRandomMnemonic({ [words] }) : mnemonic
 
@@ -65,7 +64,7 @@ mnemonic:`string`
 #### Example
 
 ```js
-import { getRandomMnemonic } from '@elevenyellow.com/wallets-helpers/BTC'
+import { getRandomMnemonic } from '@elevenyellow.com/wallets-helpers'
 const mnemonic = getRandomMnemonic({ words: 12 })
 ```
 
@@ -90,51 +89,11 @@ import {
     networks,
     getRandomMnemonic,
     getSeedFromMnemonic
-} from '@elevenyellow.com/wallets-helpers/BTC'
+} from '@elevenyellow.com/wallets-helpers'
 const network = networks.mainnet
 const mnemonic = getRandomMnemonic({ words: 12 })
 const seed = getSeedFromMnemonic({ mnemonic, network })
 ```
-
-### getPrivateKeyFromSeed({ seed }) : private_key
-
-It gets a private key from a seed.
-
-#### Params
-
--   seed:`object`
-
-#### Returns
-
-private_key:`string`
-
-### getAddressFromSeed({ seed, network, [segwit] }) : address
-
-It gets an address from a seed.
-
-#### Params
-
--   seed:`object`
--   network:`object`
--   segwit:`boolean` _optional_ default=true
-
-#### Returns
-
-address:`string`
-
-### getAddressFromPrivateKey({ private_key, network, [segwit] }) : address
-
-It gets an address from a private key.
-
-#### Params
-
--   private_key:`string`
--   network:`object`
--   segwit:`boolean` _optional_ default=true
-
-#### Returns
-
-address:`string`
 
 ### derivePath({ seed, path }) : seed
 
@@ -241,6 +200,53 @@ const xprv = getExtendedPrivateKeyFromSeed({ seed })
 const seed2 = getSeedFromExtended({ extended: xprv })
 t.deepEqual(seed, seed2) // true
 ```
+
+
+
+
+## /BTC
+
+
+### getPrivateKeyFromSeed({ seed }) : private_key
+
+It gets a private key from a seed.
+
+#### Params
+
+-   seed:`object`
+
+#### Returns
+
+private_key:`string`
+
+### getAddressFromSeed({ seed, network, [segwit] }) : address
+
+It gets an address from a seed.
+
+#### Params
+
+-   seed:`object`
+-   network:`object`
+-   segwit:`boolean` _optional_ default=true
+
+#### Returns
+
+address:`string`
+
+### getAddressFromPrivateKey({ private_key, network, [segwit] }) : address
+
+It gets an address from a private key.
+
+#### Params
+
+-   private_key:`string`
+-   network:`object`
+-   segwit:`boolean` _optional_ default=true
+
+#### Returns
+
+address:`string`
+
 
 ### isAddress(address) : boolean
 

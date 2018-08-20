@@ -1,16 +1,18 @@
 const test = require('ava')
 const {
-    networks,
     getRandomMnemonic,
     getSeedFromMnemonic,
-    getPrivateKeyFromSeed,
-    getAddressFromSeed,
-    getAddressFromPrivateKey,
     derivePath,
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended,
+    getSeedFromExtended
+} = require('../')
+const {
+    networks,
+    getPrivateKeyFromSeed,
+    getAddressFromSeed,
+    getAddressFromPrivateKey,
     isAddress
 } = require('../ETH')
 
