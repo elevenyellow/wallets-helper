@@ -71,7 +71,8 @@ module.exports = {
     deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
-    getSeedFromExtended
+    getSeedFromExtended,
+    validateMnemonic: bip39.validateMnemonic
 }
 
 // Private

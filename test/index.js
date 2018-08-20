@@ -1,5 +1,5 @@
 const test = require('ava')
-const { getCoin, getNetwork, getDerivationPath } = require('../')
+const { getCoin, getNetwork, getDerivationPath, validateMnemonic } = require('../')
 
 test('getCoin', async t => {
     const btc1 = getCoin({ symbol: 'btc' })
@@ -74,4 +74,10 @@ test('getDerivationPath', async t => {
     t.is(networks[0].path.true, network_name)
     t.is(networks[0].path.false, network_segwit)
     t.is(networks[1].path.true, network_segwitnotfound)
+})
+
+test('validateMnemonic', async t => {
+    const mnemonic =
+    'property bone kite yard announce enjoy legal load raven praise hurdle point'
+    t.is(validateMnemonic(mnemonic), true)
 })

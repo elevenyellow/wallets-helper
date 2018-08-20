@@ -15,7 +15,7 @@
             "request": "launch",
             "name": "Run AVA test",
             "program": "${workspaceRoot}/node_modules/ava/profile.js",
-            "args": ["${file}"],
+            "args": ["${workspaceFolder}/${relativeFile}"],
             "skipFiles": ["<node_internals>/**/*.js"]
         }
     ]
