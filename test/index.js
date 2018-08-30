@@ -5,8 +5,8 @@ const {
     getDerivationPath,
     validateMnemonic,
     limitDecimals,
-    toSatoshi,
-    fromSatoshi
+    toBigUnit,
+    toSmallUnit
 } = require('../')
 
 test('getCoin', async t => {
@@ -111,9 +111,9 @@ test('limitDecimals', async t => {
     )
 })
 
-// test('toSatoshi fromSatoshi', async t => {
+// test('toBigUnit toSmallUnit', async t => {
 //     const value = '0.031413213141301200000001'
-//     const sat = toSatoshi(value, 8)
+//     const sat = toBigUnit(value, 8)
 
-//     t.is(fromSatoshi(sat, 8), value)
+//     t.is(toSmallUnit(sat, 8), value)
 // })

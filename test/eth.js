@@ -13,7 +13,9 @@ const {
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,
-    isAddress
+    isAddress,
+    toWei,
+    fromWei
 } = require('../ETH')
 
 const network = networks.mainnet
@@ -133,4 +135,14 @@ test('isAddress', async t => {
     // others
     t.is(isAddress('LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n'), false)
     t.is(isAddress('38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb'), false)
+})
+
+test('toWei', async t => {
+    const value = '1'
+    t.is(toWei(value), '1000000000000000000')
+})
+
+test('fromWei', async t => {
+    const value = '123456789'
+    t.is(fromWei(value), '0.000000000123456789')
 })

@@ -1,6 +1,7 @@
 const Bitcoin = require('bitcoinjs-lib')
 const createKeccakHash = require('keccak')
 const secp256k1 = require('secp256k1')
+const { toSmallUnit, toBigUnit, limitDecimals } = require('../')
 
 const {
     addHexPrefix,
@@ -10,6 +11,7 @@ const {
     // sha3
 } = require('ethereumjs-util')
 
+const decimals = 18
 const networks = [
     {
         name: 'mainnet',
@@ -63,12 +65,22 @@ function isAddress(address) {
     return isValidAddress(address) // /^(0x)?[0-9a-fA-F]{40}$/.test(string)
 }
 
+function toWei(value) {
+    return limitDecimals(toBigUnit(value, decimals), decimals)
+}
+
+function fromWei(value) {
+    return limitDecimals(toSmallUnit(value, decimals), decimals)
+}
+
 module.exports = {
     networks,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,
-    isAddress
+    isAddress,
+    toWei,
+    fromWei
 }
 
 // Private

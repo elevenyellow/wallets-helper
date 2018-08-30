@@ -1,4 +1,5 @@
 const Bitcoin = require('bitcoinjs-lib')
+const { toSmallUnit, toBigUnit, limitDecimals } = require('../')
 
 const decimals = 8
 const networks = [
@@ -74,6 +75,14 @@ function validateAddress({ address, network, segwit }) {
     }
 }
 
+function toSatoshis(value) {
+    return limitDecimals(toBigUnit(value, decimals), decimals)
+}
+
+function fromSatoshis(value) {
+    return limitDecimals(toSmallUnit(value, decimals), decimals)
+}
+
 module.exports = {
     decimals,
     networks,
@@ -81,5 +90,7 @@ module.exports = {
     getAddressFromSeed,
     getAddressFromPrivateKey,
     isAddress,
-    validateAddress
+    validateAddress,
+    toSatoshis,
+    fromSatoshis
 }

@@ -77,13 +77,13 @@ function limitDecimals(value, max_decimals = Infinity) {
     return decimals.length === 0 ? integer : integer + '.' + decimals.join('')
 }
 
-function toSatoshi(value, decimals) {
+function toBigUnit(value, decimals) {
     return BigNumber(value)
         .times(Math.pow(10, decimals))
         .toFixed()
 }
 
-function fromSatoshi(value, decimals) {
+function toSmallUnit(value, decimals) {
     return BigNumber(value)
         .div(Math.pow(10, decimals))
         .toFixed()
@@ -102,8 +102,8 @@ module.exports = {
     getSeedFromExtended,
     validateMnemonic: bip39.validateMnemonic,
     limitDecimals,
-    toSatoshi,
-    fromSatoshi
+    toBigUnit,
+    toSmallUnit
 }
 
 // Private
