@@ -1,5 +1,6 @@
 const Bitcoin = require('bitcoinjs-lib')
 
+const decimals = 8
 const networks = [
     {
         name: 'mainnet',
@@ -18,9 +19,6 @@ const networks = [
         }
     }
 ]
-
-
-
 
 function getPrivateKeyFromSeed({ seed }) {
     const keypair = seed.keyPair
@@ -54,8 +52,6 @@ function getAddressFromKeypair({ keypair, network, segwit = true }) {
     }
 }
 
-
-
 function isAddress(address) {
     return (
         validateAddress({ address, network: networks[0].config }) ||
@@ -79,6 +75,7 @@ function validateAddress({ address, network, segwit }) {
 }
 
 module.exports = {
+    decimals,
     networks,
     getPrivateKeyFromSeed,
     getAddressFromSeed,

@@ -18,6 +18,7 @@
     },
     "homepage": "https://github.com/elevenyellow/wallets-helpers#readme",
     "dependencies": {
+        "bignumber.js": "^7.2.1",
         "bip39crypto": "^2.5.0",
         "bitcoinjs-lib": "^3.3.2",
         "ethereumjs-util": "^5.2.0",

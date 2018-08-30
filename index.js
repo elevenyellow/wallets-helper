@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const Bitcoin = require('bitcoinjs-lib')
 const bip39 = require('bip39crypto')
+const BigNumber = require('bignumber.js')
 
 const requires = {}
 
@@ -26,7 +27,6 @@ function getDerivationPath({ symbol, name, segwit = true }) {
     if (network)
         return network.path[segwit] || network.path.true || network.path.false
 }
-
 
 function getRandomMnemonic({ words } = { words: 24 }) {
     const strength = ((words / 3) * 32) / 8
@@ -59,10 +59,38 @@ function getSeedFromExtended({ extended, network }) {
     return Bitcoin.HDNode.fromBase58(extended, network)
 }
 
+// https://github.com/dperish/prettyFloat.js/blob/master/prettyFloat.js
+function limitDecimals(value, max_decimals = Infinity) {
+    const parts = /^(\d+)\.(\d+)$/.exec(String(value))
+    if (parts === null) return value
+    const integer = parts[1]
+    let decimals = parts[2].split('')
 
+    // Cutting
+    decimals = decimals.splice(0, max_decimals)
 
-module.exports = {     
-    getCoin, 
+    // Removing tailing 0
+    for (var i = 0, total = decimals.length; i < total; i++)
+        if (decimals[total - i - 1] !== '0') break
+    decimals = decimals.splice(0, total - i)
+
+    return decimals.length === 0 ? integer : integer + '.' + decimals.join('')
+}
+
+function toSatoshi(value, decimals) {
+    return BigNumber(value)
+        .times(Math.pow(10, decimals))
+        .toFixed()
+}
+
+function fromSatoshi(value, decimals) {
+    return BigNumber(value)
+        .div(Math.pow(10, decimals))
+        .toFixed()
+}
+
+module.exports = {
+    getCoin,
     getNetwork,
     getDerivationPath,
     getRandomMnemonic,
@@ -72,7 +100,10 @@ module.exports = {
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
     getSeedFromExtended,
-    validateMnemonic: bip39.validateMnemonic
+    validateMnemonic: bip39.validateMnemonic,
+    limitDecimals,
+    toSatoshi,
+    fromSatoshi
 }
 
 // Private
