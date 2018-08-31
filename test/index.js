@@ -58,30 +58,28 @@ test('getNetwork testnet', async t => {
     t.is(networks[1].config, network_name)
 })
 
-test('getDerivationPath default', async t => {
-    const { networks } = require('../BTC')
-    const network = getDerivationPath({ symbol: 'btc' })
-    t.is(networks[0].path.true, network)
-})
-
 test('getDerivationPath', async t => {
-    const { networks } = require('../BTC')
-    const network_index = getDerivationPath({ symbol: 'btc', name: 0 })
-    const network_name = getDerivationPath({ symbol: 'btc', name: 'MainNet' })
-    const network_segwit = getDerivationPath({
-        symbol: 'btc',
-        name: 'MainNet',
-        segwit: false
-    })
-    const network_segwitnotfound = getDerivationPath({
-        symbol: 'btc',
-        name: 'testnet',
-        segwit: 'dadadada'
-    })
-    t.is(networks[0].path.true, network_index)
-    t.is(networks[0].path.true, network_name)
-    t.is(networks[0].path.false, network_segwit)
-    t.is(networks[1].path.true, network_segwitnotfound)
+    t.is(getDerivationPath({ symbol: 'btc' }), "m/49'/0'/0'/0/0")
+    t.is(getDerivationPath({ symbol: 'btc', segwit: false }), "m/44'/0'/0'/0/0")
+    t.is(getDerivationPath({ symbol: 'btc', name: 0 }), "m/49'/0'/0'/0/0")
+    t.is(
+        getDerivationPath({ symbol: 'btc', name: 'TestNet' }),
+        "m/49'/1'/0'/0/0"
+    )
+    t.is(getDerivationPath({ symbol: 'btc', index: 25 }), "m/49'/0'/0'/0/25")
+    t.is(
+        getDerivationPath({ symbol: 'btc', index: 25, account: 1 }),
+        "m/49'/0'/1'/0/25"
+    )
+    t.is(
+        getDerivationPath({
+            symbol: 'btc',
+            index: 25,
+            account: 1,
+            external: 2
+        }),
+        "m/49'/0'/1'/2/25"
+    )
 })
 
 test('validateMnemonic', async t => {

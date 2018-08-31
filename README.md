@@ -46,7 +46,7 @@ const mainnet = getNetwork({symbol:'BTC'}) // Bitcoin.networks.bitcoin
 const testnet =  = getNetwork({symbol:'BTC', name:'testnet'}) // Bitcoin.networks.testnet
 ```
 
-### getDerivationPath({ symbol, [name=mainnet], [segwit=true] }) : string
+### getDerivationPath({ symbol, [name=mainnet], [segwit=true], [account=0], [external=0], [index=0] }) : string
 
 ### getRandomMnemonic({ [words] }) : mnemonic
 
@@ -116,6 +116,7 @@ const private_key = getPrivateKeyFromSeed({ seed: seed_rerived })
 console.log(private_key) // 'L2PUoVDh2hpKzfRGcbuQW9NHssEBbX7gEuWobWhzmqan2iKVhtcL'
 ```
 
+<!--
 ### deriveIndex({ seed, index }) : seed
 
 It creates a new seed with a new derivation.
@@ -137,7 +138,7 @@ seed = derivePath({ seed, path: "m/44'/0'/0'/0" })
 seed = deriveIndex({ seed, index: 25 })
 // Equivalent to
 seed = derivePath({ seed, path: "m/44'/0'/0'/0/25" })
-```
+``` -->
 
 ### getExtendedPrivateKeyFromSeed({ seed }) : extended_private_key
 

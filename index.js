@@ -22,10 +22,17 @@ function getNetwork({ symbol, name }) {
     if (network) return network.config
 }
 
-function getDerivationPath({ symbol, name, segwit = true }) {
+function getDerivationPath({
+    symbol,
+    name,
+    segwit = true,
+    account = 0,
+    external = 0,
+    index = 0
+}) {
     const network = pickNetwork({ symbol, name })
-    if (network)
-        return network.path[segwit] || network.path.true || network.path.false
+    const f = network.path[segwit] || network.path.true || network.path.false
+    return f({ account, external, index })
 }
 
 function getRandomMnemonic({ words } = { words: 24 }) {
@@ -43,9 +50,13 @@ function derivePath({ seed, path }) {
     return seed.derivePath(path)
 }
 
-function deriveIndex({ seed, index }) {
-    return seed.derive(index)
+function formatPath({ path, index, account = 0, external = 0 }) {
+    return seed.derivePath(path)
 }
+
+// function deriveIndex({ seed, index }) {
+//     return seed.derive(index)
+// }
 
 function getExtendedPublicKeyFromSeed({ seed }) {
     return seed.neutered().toBase58()
@@ -96,7 +107,6 @@ module.exports = {
     getRandomMnemonic,
     getSeedFromMnemonic,
     derivePath,
-    deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
     getSeedFromExtended,

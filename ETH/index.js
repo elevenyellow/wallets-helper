@@ -17,16 +17,20 @@ const networks = [
         name: 'mainnet',
         config: Bitcoin.networks.bitcoin,
         path: {
-            false: "m/44'/60'/0'/0",
-            true: "m/44'/60'/0'/0" // segwit
+            false: ({ account, external, index }) =>
+                `m/44'/60'/${account}'/${external}/${index}`,
+            true: ({ account, external, index }) =>
+                `m/44'/60'/${account}'/${external}/${index}`
         }
     },
     {
         name: 'testnet',
         config: Bitcoin.networks.bitcoin,
         path: {
-            false: "m/44'/60'/0'/0",
-            true: "m/44'/60'/0'/0" // segwit
+            false: ({ account, external, index }) =>
+                `m/44'/60'/${account}'/${external}/${index}`,
+            true: ({ account, external, index }) =>
+                `m/44'/60'/${account}'/${external}/${index}`
         }
     }
 ]
