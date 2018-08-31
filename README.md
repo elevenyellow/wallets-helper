@@ -48,7 +48,6 @@ const testnet =  = getNetwork({symbol:'BTC', name:'testnet'}) // Bitcoin.network
 
 ### getDerivationPath({ symbol, [name=mainnet], [segwit=true] }) : string
 
-
 ### getRandomMnemonic({ [words] }) : mnemonic
 
 Used to create a new random mnemonic.
@@ -201,61 +200,27 @@ const seed2 = getSeedFromExtended({ extended: xprv })
 t.deepEqual(seed, seed2) // true
 ```
 
-
-
-
-## /BTC
-
-
-### getPrivateKeyFromSeed({ seed }) : private_key
-
-It gets a private key from a seed.
+### limitDecimals(value, [max_decimals]) : string
 
 #### Params
 
--   seed:`object`
+-   value:`string|number`
+-   max*decimals:`number` \_optional* default=Infinity
 
 #### Returns
 
-private_key:`string`
+number:`string`
 
-### getAddressFromSeed({ seed, network, [segwit] }) : address
+#### Example
 
-It gets an address from a seed.
-
-#### Params
-
--   seed:`object`
--   network:`object`
--   segwit:`boolean` _optional_ default=true
-
-#### Returns
-
-address:`string`
-
-### getAddressFromPrivateKey({ private_key, network, [segwit] }) : address
-
-It gets an address from a private key.
-
-#### Params
-
--   private_key:`string`
--   network:`object`
--   segwit:`boolean` _optional_ default=true
-
-#### Returns
-
-address:`string`
-
-
-### isAddress(address) : boolean
-
-Used to create a new random mnemonic.
-
-#### Params
-
--   address:`string`
-
-#### Returns
-
-`boolean`
+```js
+limitDecimals('1.1234567890') // '1.123456789'
+limitDecimals('1.1234567890', 5) // '1.12345'
+limitDecimals('1.1234567890', 2) // '1.12'
+limitDecimals('1.1234567890', 20) // '1.123456789'
+limitDecimals('1.00', 2) // '1'
+limitDecimals('1.00000000000000001', 2) // '1'
+limitDecimals('1.04000000000000001', 2) // '1.04'
+limitDecimals('1', 2) // '1'
+limitDecimals('65486585', 2) // '65486585'
+```

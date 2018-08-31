@@ -1,6 +1,6 @@
 {
     "name": "@elevenyellow.com/wallets-helpers",
-    "version": "1.6.1",
+    "version": "1.7.0",
     "description": "Easy way to manage wallets from different blockchains",
     "main": "index.js",
     "scripts": {
