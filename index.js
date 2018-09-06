@@ -50,13 +50,9 @@ function derivePath({ seed, path }) {
     return seed.derivePath(path)
 }
 
-function formatPath({ path, index, account = 0, external = 0 }) {
-    return seed.derivePath(path)
+function deriveIndex({ seed, index }) {
+    return seed.derive(index)
 }
-
-// function deriveIndex({ seed, index }) {
-//     return seed.derive(index)
-// }
 
 function getExtendedPublicKeyFromSeed({ seed }) {
     return seed.neutered().toBase58()
@@ -107,6 +103,7 @@ module.exports = {
     getRandomMnemonic,
     getSeedFromMnemonic,
     derivePath,
+    deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
     getSeedFromExtended,

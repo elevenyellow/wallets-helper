@@ -3,6 +3,7 @@ const {
     getRandomMnemonic,
     getSeedFromMnemonic,
     derivePath,
+    deriveIndex,
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
     getSeedFromExtended
@@ -77,19 +78,19 @@ test('derivePath', async t => {
     )
 })
 
-// test('deriveIndex', async t => {
-//     let seed = getSeedFromMnemonic({ mnemonic, network })
-//     let seed1 = derivePath({ seed, path: "m/44'/0'/0'/0/25" })
-//     let seed2 = derivePath({ seed, path: "m/44'/0'/0'/0" })
-//     seed2 = deriveIndex({ seed: seed2, index: 25 })
-//     let private_key1 = getPrivateKeyFromSeed({ seed: seed1 })
-//     let private_key2 = getPrivateKeyFromSeed({ seed: seed2 })
-//     t.is(private_key1, private_key2)
-//     t.is(
-//         private_key1,
-//         '0x9a36714ae0687d67115cf377e9a3b9c484958ca61df64f87a8f1b1493f46011d'
-//     )
-// })
+test('deriveIndex', async t => {
+    let seed = getSeedFromMnemonic({ mnemonic, network })
+    let seed1 = derivePath({ seed, path: "m/44'/0'/0'/0/25" })
+    let seed2 = derivePath({ seed, path: "m/44'/0'/0'/0" })
+    seed2 = deriveIndex({ seed: seed2, index: 25 })
+    let private_key1 = getPrivateKeyFromSeed({ seed: seed1 })
+    let private_key2 = getPrivateKeyFromSeed({ seed: seed2 })
+    t.is(private_key1, private_key2)
+    t.is(
+        private_key1,
+        '0x9a36714ae0687d67115cf377e9a3b9c484958ca61df64f87a8f1b1493f46011d'
+    )
+})
 
 test('getExtendedPrivateKeyFromSeed', async t => {
     let seed = getSeedFromMnemonic({ mnemonic, network })
