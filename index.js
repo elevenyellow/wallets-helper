@@ -31,8 +31,12 @@ function getDerivationPath({
     index
 }) {
     const network = pickNetwork({ symbol, name })
+    const path = network.path[segwit] || network.path.true || network.path.false
+    return makePath({ path, account, external, index })
+}
+
+function makePath({ path, account, external, index }) {
     const toadd = []
-    let path = network.path[segwit] || network.path.true || network.path.false
     if (account !== undefined) toadd[0] = account
     if (external !== undefined) toadd[1] = external
     if (index !== undefined) toadd[2] = index
