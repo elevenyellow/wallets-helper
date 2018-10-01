@@ -59,11 +59,17 @@ test('getNetwork testnet', async t => {
 })
 
 test('getDerivationPath', async t => {
-    t.is(getDerivationPath({ symbol: 'btc' }), "m/49'/0'/0'/0/0")
-    t.is(getDerivationPath({ symbol: 'btc', segwit: false }), "m/44'/0'/0'/0/0")
-    t.is(getDerivationPath({ symbol: 'btc', name: 0 }), "m/49'/0'/0'/0/0")
+    t.is(getDerivationPath({ symbol: 'btc', index: 0 }), "m/49'/0'/0'/0/0")
     t.is(
-        getDerivationPath({ symbol: 'btc', name: 'TestNet' }),
+        getDerivationPath({ symbol: 'btc', index: 0, segwit: false }),
+        "m/44'/0'/0'/0/0"
+    )
+    t.is(
+        getDerivationPath({ symbol: 'btc', index: 0, name: 0 }),
+        "m/49'/0'/0'/0/0"
+    )
+    t.is(
+        getDerivationPath({ symbol: 'btc', index: 0, name: 'TestNet' }),
         "m/49'/1'/0'/0/0"
     )
     t.is(getDerivationPath({ symbol: 'btc', index: 25 }), "m/49'/0'/0'/0/25")

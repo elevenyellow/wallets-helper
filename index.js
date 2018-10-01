@@ -26,13 +26,21 @@ function getDerivationPath({
     symbol,
     name,
     segwit = true,
-    account = 0,
-    external = 0,
-    index = 0
+    account,
+    external,
+    index
 }) {
     const network = pickNetwork({ symbol, name })
-    const f = network.path[segwit] || network.path.true || network.path.false
-    return f({ account, external, index })
+    const toadd = []
+    let path = network.path[segwit] || network.path.true || network.path.false
+    if (account !== undefined) toadd[0] = account
+    if (external !== undefined) toadd[1] = external
+    if (index !== undefined) toadd[2] = index
+    for (let i = 0; i < toadd.length; i++) {
+        path += `/${toadd[i] || 0}`
+        if (i === 0) path += `'`
+    }
+    return path
 }
 
 function getRandomMnemonic({ words } = { words: 24 }) {
