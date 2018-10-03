@@ -2,6 +2,10 @@ const crypto = require('crypto')
 const Bitcoin = require('bitcoinjs-lib')
 const bip39 = require('bip39crypto')
 const BigNumber = require('bignumber.js')
+const {
+    getNetwork,
+    getDerivationPath
+} = require('@elevenyellow.com/blockchain-networks')
 
 const requires = {}
 
@@ -15,36 +19,6 @@ function getCoin({ symbol }) {
         }
     }
     return requires[symbol]
-}
-
-function getNetwork({ symbol, name }) {
-    const network = pickNetwork({ symbol, name })
-    if (network) return network.config
-}
-
-function getDerivationPath({
-    symbol,
-    name,
-    segwit = true,
-    account,
-    external,
-    index
-}) {
-    const network = pickNetwork({ symbol, name })
-    const path = network.path[segwit] || network.path.true || network.path.false
-    return makePath({ path, account, external, index })
-}
-
-function makePath({ path, account, external, index }) {
-    const toadd = []
-    if (account !== undefined) toadd[0] = account
-    if (external !== undefined) toadd[1] = external
-    if (index !== undefined) toadd[2] = index
-    for (let i = 0; i < toadd.length; i++) {
-        path += `/${toadd[i] || 0}`
-        if (i === 0) path += `'`
-    }
-    return path
 }
 
 function getRandomMnemonic({ words } = { words: 24 }) {
