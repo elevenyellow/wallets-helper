@@ -1,7 +1,6 @@
 const test = require('ava')
 const {
     getCoin,
-    getNetwork,
     getDerivationPath,
     validateMnemonic,
     limitDecimals,
@@ -22,41 +21,6 @@ test('getCoin not found', async t => {
         t.is(typeof e, 'string')
     }
 })
-
-// test('getNetwork default', async t => {
-//     const { networks } = require('../BTC')
-//     const network = getNetwork({ symbol: 'btc' })
-//     t.is(networks[0].config, network)
-// })
-
-// test('getNetwork', async t => {
-//     const { networks } = require('../BTC')
-//     const network_index = getNetwork({ symbol: 'btc', name: 0 })
-//     const network_name = getNetwork({ symbol: 'btc', name: 'MainNet' })
-//     t.is(networks[0].config, network_index)
-//     t.is(networks[0].config, network_name)
-// })
-
-// test('getNetwork not found symbol', async t => {
-//     try {
-//         getNetwork({ symbol: 'dada' })
-//     } catch (e) {
-//         t.is(typeof e, 'string')
-//     }
-// })
-
-// test('getNetwork not found name', async t => {
-//     const network = getNetwork({ symbol: 'btc', name: 'dadada' })
-//     t.is(undefined, network)
-// })
-
-// test('getNetwork testnet', async t => {
-//     const { networks } = require('../BTC')
-//     const network_index = getNetwork({ symbol: 'btc', name: 1 })
-//     const network_name = getNetwork({ symbol: 'btc', name: 'TESTNET' })
-//     t.is(networks[1].config, network_index)
-//     t.is(networks[1].config, network_name)
-// })
 
 test('getDerivationPath', async t => {
     t.is(getDerivationPath({ symbol: 'btc', index: 0 }), "m/49'/0'/0'/0/0")

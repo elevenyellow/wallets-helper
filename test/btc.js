@@ -18,10 +18,19 @@ const {
     toSatoshis,
     fromSatoshis
 } = require('../BTC')
+const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
+const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
 
-const testnet = networks[1].config
-const mainnet = networks[0].config
-const network = mainnet
+const network_mainnet = getNetwork({
+    symbol: SYMBOL.BTC,
+    name: NETWORK.MAINNET
+})
+const network_testnet = getNetwork({
+    symbol: SYMBOL.BTC,
+    name: NETWORK.TESTNET
+})
+
+const network = network_mainnet
 const mnemonic =
     'property bone kite yard announce enjoy legal load raven praise hurdle point'
 
@@ -134,7 +143,7 @@ test('validateAddress', async t => {
     t.is(
         validateAddress({
             address: '15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb',
-            network: mainnet,
+            network: network_mainnet,
             segwit: false
         }),
         true
@@ -142,7 +151,7 @@ test('validateAddress', async t => {
     t.is(
         validateAddress({
             address: '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb',
-            network: mainnet,
+            network: network_mainnet,
             segwit: true
         }),
         true
@@ -150,7 +159,7 @@ test('validateAddress', async t => {
     t.is(
         validateAddress({
             address: 'n3us2VsMjMcepehnDQXGB8pSXJ5XkSbsRZ',
-            network: testnet,
+            network: network_testnet,
             segwit: false
         }),
         true
@@ -158,7 +167,7 @@ test('validateAddress', async t => {
     t.is(
         validateAddress({
             address: '2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh',
-            network: testnet,
+            network: network_testnet,
             segwit: true
         }),
         true
@@ -168,7 +177,7 @@ test('validateAddress', async t => {
     t.is(
         validateAddress({
             address: '15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb',
-            network: mainnet,
+            network: network_mainnet,
             segwit: true
         }),
         false
@@ -177,7 +186,7 @@ test('validateAddress', async t => {
     t.is(
         validateAddress({
             address: '2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh',
-            network: testnet,
+            network: network_testnet,
             segwit: false
         }),
         false

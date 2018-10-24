@@ -1,25 +1,17 @@
 const Bitcoin = require('bitcoinjs-lib')
+const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
+const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
 const { toSmallUnit, toBigUnit, limitDecimals } = require('../')
 
 const decimals = 8
-const networks = [
-    {
-        name: 'mainnet',
-        config: Bitcoin.networks.bitcoin,
-        path: {
-            false: `m/44'/0'`,
-            true: `m/49'/0'` // segwit true
-        }
-    },
-    {
-        name: 'testnet',
-        config: Bitcoin.networks.testnet,
-        path: {
-            false: `m/44'/1'`,
-            true: `m/49'/1'` // segwit true
-        }
-    }
-]
+const network_mainnet = getNetwork({
+    symbol: SYMBOL.BTC,
+    name: NETWORK.MAINNET
+})
+const network_testnet = getNetwork({
+    symbol: SYMBOL.BTC,
+    name: NETWORK.TESTNET
+})
 
 function getPrivateKeyFromSeed({ seed }) {
     const keypair = seed.keyPair
@@ -55,8 +47,8 @@ function getAddressFromKeypair({ keypair, network, segwit = true }) {
 
 function isAddress(address) {
     return (
-        validateAddress({ address, network: networks[0].config }) ||
-        validateAddress({ address, network: networks[1].config })
+        validateAddress({ address, network: network_mainnet }) ||
+        validateAddress({ address, network: network_testnet })
     )
 }
 
@@ -85,7 +77,6 @@ function fromSatoshis(value) {
 
 module.exports = {
     decimals,
-    networks,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,

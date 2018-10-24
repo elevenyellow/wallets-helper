@@ -17,8 +17,19 @@ const {
     toWei,
     fromWei
 } = require('../ETH')
+const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
+const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
 
-const network = networks.mainnet
+const network_mainnet = getNetwork({
+    symbol: SYMBOL.BTC,
+    name: NETWORK.MAINNET
+})
+const network_testnet = getNetwork({
+    symbol: SYMBOL.BTC,
+    name: NETWORK.TESTNET
+})
+
+const network = network_mainnet
 const mnemonic =
     'property bone kite yard announce enjoy legal load raven praise hurdle point'
 

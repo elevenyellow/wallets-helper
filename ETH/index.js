@@ -1,6 +1,8 @@
 const Bitcoin = require('bitcoinjs-lib')
 const createKeccakHash = require('keccak')
 const secp256k1 = require('secp256k1')
+// const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
+// const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
 const { toSmallUnit, toBigUnit, limitDecimals } = require('../')
 
 const {
@@ -12,24 +14,14 @@ const {
 } = require('ethereumjs-util')
 
 const decimals = 18
-const networks = [
-    {
-        name: 'mainnet',
-        config: Bitcoin.networks.bitcoin,
-        path: {
-            false: `m/44'/60'`,
-            true: `m/44'/60'`
-        }
-    },
-    {
-        name: 'testnet',
-        config: Bitcoin.networks.bitcoin,
-        path: {
-            false: `m/44'/60'`,
-            true: `m/44'/60'`
-        }
-    }
-]
+// const network_mainnet = getNetwork({
+//     symbol: SYMBOL.ETH,
+//     name: NETWORK.MAINNET
+// })
+// const network_testnet = getNetwork({
+//     symbol: SYMBOL.ETH,
+//     name: NETWORK.TESTNET
+// })
 
 function getPrivateKeyFromSeed({ seed }) {
     const private_key = seed.keyPair.d.toBuffer()
@@ -74,7 +66,6 @@ function fromWei(value) {
 }
 
 module.exports = {
-    networks,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,

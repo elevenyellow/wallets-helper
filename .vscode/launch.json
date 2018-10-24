@@ -7,13 +7,34 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Relative",
+            "useWSL": true,
+            "runtimeExecutable": "/home/enzo/.nvm/versions/node/v8.11.4/bin/node",
+            "name": "Win relative",
             "program": "${workspaceFolder}/${relativeFile}"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Run AVA test",
+            "useWSL": true,
+            "runtimeExecutable": "/home/enzo/.nvm/versions/node/v8.11.4/bin/node",
+            "name": "Win AVA",
+            "program": "${workspaceRoot}/node_modules/ava/profile.js",
+            "args": [
+                "/mnt/c/Users/enzo/drive/projects/wallets-helpers/${relativeFile}"
+            ],
+            "skipFiles": ["<node_internals>/**/*.js"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mac relative",
+            "program": "${workspaceFolder}/${relativeFile}"
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mac AVA",
             "program": "${workspaceRoot}/node_modules/ava/profile.js",
             "args": ["${workspaceFolder}/${relativeFile}"],
             "skipFiles": ["<node_internals>/**/*.js"]

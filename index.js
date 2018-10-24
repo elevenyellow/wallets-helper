@@ -3,7 +3,6 @@ const Bitcoin = require('bitcoinjs-lib')
 const bip39 = require('bip39crypto')
 const BigNumber = require('bignumber.js')
 const {
-    getNetwork,
     getDerivationPath
 } = require('@elevenyellow.com/blockchain-helpers/networks')
 
@@ -84,7 +83,6 @@ function toSmallUnit(value, decimals) {
 
 module.exports = {
     getCoin,
-    getNetwork,
     getDerivationPath,
     getRandomMnemonic,
     getSeedFromMnemonic,
