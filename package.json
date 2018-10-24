@@ -1,6 +1,6 @@
 {
     "name": "@elevenyellow.com/wallets-helpers",
-    "version": "1.11.0",
+    "version": "1.12.0",
     "description": "Easy way to manage wallets from different blockchains",
     "main": "index.js",
     "scripts": {
@@ -18,7 +18,7 @@
     },
     "homepage": "https://github.com/elevenyellow/wallets-helpers#readme",
     "dependencies": {
-        "@elevenyellow.com/blockchain-networks": "^1.0.0",
+        "@elevenyellow.com/blockchain-helpers": "^2.0.2",
         "bignumber.js": "^7.2.1",
         "bip39crypto": "^2.5.0",
         "bitcoinjs-lib": "^3.3.2",

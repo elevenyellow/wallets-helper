@@ -5,7 +5,7 @@ const BigNumber = require('bignumber.js')
 const {
     getNetwork,
     getDerivationPath
-} = require('@elevenyellow.com/blockchain-networks')
+} = require('@elevenyellow.com/blockchain-helpers/networks')
 
 const requires = {}
 
