@@ -1,7 +1,6 @@
 const test = require('ava')
 const {
     getCoin,
-    getDerivationPath,
     validateMnemonic,
     limitDecimals,
     toBigUnit,
@@ -20,40 +19,6 @@ test('getCoin not found', async t => {
     } catch (e) {
         t.is(typeof e, 'string')
     }
-})
-
-test('getDerivationPath', async t => {
-    t.is(getDerivationPath({ symbol: 'btc', index: 0 }), "m/49'/0'/0'/0/0")
-    t.is(
-        getDerivationPath({ symbol: 'btc', index: 0, segwit: false }),
-        "m/44'/0'/0'/0/0"
-    )
-    try {
-        t.is(
-            getDerivationPath({ symbol: 'btc', index: 0, name: 0 }),
-            "m/49'/0'/0'/0/0"
-        )
-    } catch (e) {
-        t.is(typeof e, 'object')
-    }
-    t.is(
-        getDerivationPath({ symbol: 'btc', index: 0, name: 'TestNet' }),
-        "m/49'/1'/0'/0/0"
-    )
-    t.is(getDerivationPath({ symbol: 'btc', index: 25 }), "m/49'/0'/0'/0/25")
-    t.is(
-        getDerivationPath({ symbol: 'btc', index: 25, account: 1 }),
-        "m/49'/0'/1'/0/25"
-    )
-    t.is(
-        getDerivationPath({
-            symbol: 'btc',
-            index: 25,
-            account: 1,
-            external: 2
-        }),
-        "m/49'/0'/1'/2/25"
-    )
 })
 
 test('validateMnemonic', async t => {
