@@ -75,6 +75,12 @@ function fromSatoshis(value) {
     return limitDecimals(toSmallUnit(value, decimals), decimals)
 }
 
+function getRedeemScript(ecpair) {
+    const pubKey = ecpair.getPublicKeyBuffer()
+    const pubKeyHash = Bitcoin.crypto.hash160(pubKey)
+    return Bitcoin.script.witnessPubKeyHash.output.encode(pubKeyHash)
+}
+
 module.exports = {
     decimals,
     getPrivateKeyFromSeed,
@@ -83,5 +89,6 @@ module.exports = {
     isAddress,
     validateAddress,
     toSatoshis,
-    fromSatoshis
+    fromSatoshis,
+    getRedeemScript
 }
