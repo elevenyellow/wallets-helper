@@ -66,6 +66,7 @@ function fromWei(value) {
 }
 
 module.exports = {
+    decimals,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,
