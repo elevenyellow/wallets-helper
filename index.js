@@ -66,13 +66,19 @@ function limitDecimals(value, max_decimals = Infinity) {
     return decimals.length === 0 ? integer : integer + '.' + decimals.join('')
 }
 
-function toBigUnit(value, decimals) {
+function toBigUnit({ value, decimals, symbol }) {
+    if (typeof symbol == 'string') {
+        decimals = getCoin({ symbol }).decimals
+    }
     return BigNumber(value)
         .times(Math.pow(10, decimals))
         .toFixed()
 }
 
-function toSmallUnit(value, decimals) {
+function toSmallUnit({ value, decimals, symbol }) {
+    if (typeof symbol == 'string') {
+        decimals = getCoin({ symbol }).decimals
+    }
     return BigNumber(value)
         .div(Math.pow(10, decimals))
         .toFixed()

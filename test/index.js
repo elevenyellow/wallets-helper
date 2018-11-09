@@ -48,9 +48,17 @@ test('limitDecimals', async t => {
     )
 })
 
-// test('toBigUnit toSmallUnit', async t => {
-//     const value = '0.031413213141301200000001'
-//     const sat = toBigUnit(value, 8)
+test('toBigUnit toSmallUnit', async t => {
+    const value = '0.0314132131413'
+    const sat = toBigUnit({ value, decimals: 8 })
+    t.is(toSmallUnit({ value: sat, decimals: 8 }), value)
+})
 
-//     t.is(toSmallUnit(sat, 8), value)
-// })
+test('toBigUnit toSmallUnit using symbols', async t => {
+    const value = '0.0314132131413'
+    const symbol = 'BTC'
+    const sat = toBigUnit({ value, symbol })
+    const sat2 = toBigUnit({ value, decimals: 8 })
+    t.is(sat, sat2)
+    t.is(toSmallUnit({ value: sat, symbol }), value)
+})
