@@ -71,7 +71,7 @@ function toBigUnit({ value, decimals, symbol }) {
         decimals = getCoin({ symbol }).decimals
     }
     return BigNumber(value)
-        .times(Math.pow(10, decimals))
+        .div(Math.pow(10, decimals))
         .toFixed()
 }
 
@@ -80,7 +80,7 @@ function toSmallUnit({ value, decimals, symbol }) {
         decimals = getCoin({ symbol }).decimals
     }
     return BigNumber(value)
-        .div(Math.pow(10, decimals))
+        .times(Math.pow(10, decimals))
         .toFixed()
 }
 
