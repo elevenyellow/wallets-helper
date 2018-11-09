@@ -68,11 +68,11 @@ function validateAddress({ address, network, segwit }) {
 }
 
 function toSatoshis(value) {
-    return limitDecimals(toBigUnit({ value, decimals }), decimals)
+    return limitDecimals(toSmallUnit({ value, decimals }), decimals)
 }
 
 function fromSatoshis(value) {
-    return limitDecimals(toSmallUnit({ value, decimals }), decimals)
+    return limitDecimals(toBigUnit({ value, decimals }), decimals)
 }
 
 function getRedeemScript(ecpair) {

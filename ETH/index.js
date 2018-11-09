@@ -58,11 +58,11 @@ function isAddress(address) {
 }
 
 function toWei(value) {
-    return limitDecimals(toBigUnit({ value, decimals }), decimals)
+    return limitDecimals(toSmallUnit({ value, decimals }), decimals)
 }
 
 function fromWei(value) {
-    return limitDecimals(toSmallUnit({ value, decimals }), decimals)
+    return limitDecimals(toBigUnit({ value, decimals }), decimals)
 }
 
 module.exports = {
