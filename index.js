@@ -99,16 +99,16 @@ module.exports = {
     toSmallUnit
 }
 
-// Private
-function pickNetwork({ symbol, name }) {
-    const coin = getCoin({ symbol })
-    const { networks } = coin
-    if (name === undefined) {
-        return networks[0]
-    }
-    name = String(name).toLowerCase()
-    if (networks.hasOwnProperty(name)) {
-        return networks[name]
-    }
-    return networks.find(n => n.name === name)
-}
+// // Private
+// function pickNetwork({ symbol, name }) {
+//     const coin = getCoin({ symbol })
+//     const { networks } = coin
+//     if (name === undefined) {
+//         return networks[0]
+//     }
+//     name = String(name).toLowerCase()
+//     if (networks.hasOwnProperty(name)) {
+//         return networks[name]
+//     }
+//     return networks.find(n => n.name === name)
+// }
