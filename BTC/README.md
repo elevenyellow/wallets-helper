@@ -51,23 +51,3 @@ Used to create a new random mnemonic.
 #### Returns
 
 `boolean`
-
-### toSatoshis(number) : string
-
-#### Params
-
--   number:`string`
-
-#### Returns
-
-`string`
-
-### fromSatoshis(number) : string
-
-#### Params
-
--   number:`string`
-
-#### Returns
-
-`string`

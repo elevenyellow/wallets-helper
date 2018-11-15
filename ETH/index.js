@@ -3,7 +3,6 @@ const createKeccakHash = require('keccak')
 const secp256k1 = require('secp256k1')
 // const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
 // const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
-const { toSmallUnit, toBigUnit, limitDecimals } = require('../')
 
 const {
     addHexPrefix,
@@ -13,7 +12,6 @@ const {
     // sha3
 } = require('ethereumjs-util')
 
-const decimals = 18
 // const network_mainnet = getNetwork({
 //     symbol: SYMBOL.ETH,
 //     name: NETWORK.MAINNET
@@ -57,22 +55,11 @@ function isAddress(address) {
     return isValidAddress(address) // /^(0x)?[0-9a-fA-F]{40}$/.test(string)
 }
 
-function toWei(value) {
-    return limitDecimals(toSmallUnit({ value, decimals }), decimals)
-}
-
-function fromWei(value) {
-    return limitDecimals(toBigUnit({ value, decimals }), decimals)
-}
-
 module.exports = {
-    decimals,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,
-    isAddress,
-    toWei,
-    fromWei
+    isAddress
 }
 
 // Private

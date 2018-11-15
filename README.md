@@ -191,28 +191,3 @@ const xprv = getExtendedPrivateKeyFromSeed({ seed })
 const seed2 = getSeedFromExtended({ extended: xprv })
 t.deepEqual(seed, seed2) // true
 ```
-
-### limitDecimals(value, [max_decimals]) : string
-
-#### Params
-
--   value:`string|number`
--   max*decimals:`number` \_optional* default=Infinity
-
-#### Returns
-
-number:`string`
-
-#### Example
-
-```js
-limitDecimals('1.1234567890') // '1.123456789'
-limitDecimals('1.1234567890', 5) // '1.12345'
-limitDecimals('1.1234567890', 2) // '1.12'
-limitDecimals('1.1234567890', 20) // '1.123456789'
-limitDecimals('1.00', 2) // '1'
-limitDecimals('1.00000000000000001', 2) // '1'
-limitDecimals('1.04000000000000001', 2) // '1.04'
-limitDecimals('1', 2) // '1'
-limitDecimals('65486585', 2) // '65486585'
-```

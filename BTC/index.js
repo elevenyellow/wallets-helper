@@ -1,9 +1,7 @@
 const Bitcoin = require('bitcoinjs-lib')
 const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
 const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
-const { toSmallUnit, toBigUnit, limitDecimals } = require('../')
 
-const decimals = 8
 const network_mainnet = getNetwork({
     symbol: SYMBOL.BTC,
     name: NETWORK.MAINNET
@@ -67,14 +65,6 @@ function validateAddress({ address, network, segwit }) {
     }
 }
 
-function toSatoshis(value) {
-    return limitDecimals(toSmallUnit({ value, decimals }), decimals)
-}
-
-function fromSatoshis(value) {
-    return limitDecimals(toBigUnit({ value, decimals }), decimals)
-}
-
 function getRedeemScript(ecpair) {
     const pubKey = ecpair.getPublicKeyBuffer()
     const pubKeyHash = Bitcoin.crypto.hash160(pubKey)
@@ -82,13 +72,10 @@ function getRedeemScript(ecpair) {
 }
 
 module.exports = {
-    decimals,
     getPrivateKeyFromSeed,
     getAddressFromSeed,
     getAddressFromPrivateKey,
     isAddress,
     validateAddress,
-    toSatoshis,
-    fromSatoshis,
     getRedeemScript
 }

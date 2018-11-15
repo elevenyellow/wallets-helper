@@ -14,9 +14,7 @@ const {
     getAddressFromSeed,
     getAddressFromPrivateKey,
     isAddress,
-    validateAddress,
-    toSatoshis,
-    fromSatoshis
+    validateAddress
 } = require('../BTC')
 const { SYMBOL, NETWORK } = require('@elevenyellow.com/blockchain-helpers')
 const { getNetwork } = require('@elevenyellow.com/blockchain-helpers/networks')
@@ -191,14 +189,4 @@ test('validateAddress', async t => {
         }),
         false
     )
-})
-
-test('toSatoshis', async t => {
-    const value = '1'
-    t.is(toSatoshis(value), '100000000')
-})
-
-test('fromSatoshis', async t => {
-    const value = '123456789'
-    t.is(fromSatoshis(value), '1.23456789')
 })
