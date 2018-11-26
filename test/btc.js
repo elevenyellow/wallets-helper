@@ -127,14 +127,41 @@ test('getExtendedPublicKeyFromSeed', async t => {
 
 test('isAddress', async t => {
     // mainnet
-    t.is(isAddress('15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb'), true)
-    t.is(isAddress('38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb'), true) // segwit
+    t.is(
+        isAddress({
+            address: '15PWEzk1969ZKeT51cYu1Fcp1KPhMwAJGb',
+            network: network_mainnet
+        }),
+        true
+    )
+    t.is(
+        isAddress({
+            address: '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb',
+            network: network_mainnet
+        }),
+        true
+    ) // segwit
     // testnet
-    t.is(isAddress('n3us2VsMjMcepehnDQXGB8pSXJ5XkSbsRZ'), true)
-    t.is(isAddress('2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh'), true) // segwit
+    t.is(
+        isAddress({
+            address: 'n3us2VsMjMcepehnDQXGB8pSXJ5XkSbsRZ',
+            network: network_testnet
+        }),
+        true
+    )
+    t.is(
+        isAddress({
+            address: '2MtChAUk4oXWhFPxPAPwh68Xw42ZfAux6xh',
+            network: network_testnet
+        }),
+        true
+    ) // segwit
     // fails
-    t.is(isAddress('LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n'), false) // ltc
-    t.is(isAddress('dadada'), false)
+    t.is(
+        isAddress({ address: 'LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n', network }),
+        false
+    ) // ltc
+    t.is(isAddress({ address: 'dadada', network }), false)
 })
 
 test('validateAddress', async t => {

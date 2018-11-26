@@ -51,7 +51,7 @@ function getAddressFromPrivateKey({ private_key }) {
     return toChecksumAddress(privateToAddress(private_key).toString('hex'))
 }
 
-function isAddress(address) {
+function isAddress({ address }) {
     return isValidAddress(address) // /^(0x)?[0-9a-fA-F]{40}$/.test(string)
 }
 

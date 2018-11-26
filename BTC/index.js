@@ -43,11 +43,8 @@ function getAddressFromKeypair({ keypair, network, segwit = true }) {
     }
 }
 
-function isAddress(address) {
-    return (
-        validateAddress({ address, network: network_mainnet }) ||
-        validateAddress({ address, network: network_testnet })
-    )
+function isAddress({ address, network }) {
+    return validateAddress({ address, network })
 }
 
 function validateAddress({ address, network, segwit }) {

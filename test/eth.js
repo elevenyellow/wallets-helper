@@ -136,12 +136,24 @@ test('getExtendedPublicKeyFromSeed', async t => {
 
 test('isAddress', async t => {
     // mainnet
-    t.is(isAddress('0xEcCab7Ac3e7441857DE4EffbE54413c08b6dd36B'), true)
-    t.is(isAddress('0xeccab7ac3e7441857de4effbe54413c08b6dd36b'), true)
+    t.is(
+        isAddress({ address: '0xEcCab7Ac3e7441857DE4EffbE54413c08b6dd36B' }),
+        true
+    )
+    t.is(
+        isAddress({ address: '0xeccab7ac3e7441857de4effbe54413c08b6dd36b' }),
+        true
+    )
     // fails
-    t.is(isAddress('0xEcCab7Ac3e7441857DE4EffbE54413c08b6dd36'), false)
-    t.is(isAddress('EcCab7Ac3e7441857DE4EffbE54413c08b6dd36B'), false)
+    t.is(
+        isAddress({ address: '0xEcCab7Ac3e7441857DE4EffbE54413c08b6dd36' }),
+        false
+    )
+    t.is(
+        isAddress({ address: 'EcCab7Ac3e7441857DE4EffbE54413c08b6dd36B' }),
+        false
+    )
     // others
-    t.is(isAddress('LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n'), false)
-    t.is(isAddress('38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb'), false)
+    t.is(isAddress({ address: 'LKdtZXQX3v9Z7dGzPUtPxXrKLDJPTFi15n' }), false)
+    t.is(isAddress({ address: '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb' }), false)
 })
