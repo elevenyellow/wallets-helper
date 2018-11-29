@@ -48,8 +48,8 @@ test('getSeedFromMnemonic', async t => {
 test('getPrivateKeyFromSeed', async t => {
     let seed = getSeedFromMnemonic({ mnemonic, network })
     seed = derivePath({ seed, path: "m/49'/0'/0'/0/0" })
-    const private_key = getPrivateKeyFromSeed({ seed })
-    t.is(private_key, 'L2fEgQek5FGVwrGgkAxJGeQBBAAtpGxr2eHzcTn7SQXwN3T4r61D')
+    const privateKey = getPrivateKeyFromSeed({ seed })
+    t.is(privateKey, 'L2fEgQek5FGVwrGgkAxJGeQBBAAtpGxr2eHzcTn7SQXwN3T4r61D')
 })
 
 test('getAddressFromSeed', async t => {
@@ -63,13 +63,13 @@ test('getAddressFromSeed', async t => {
 
 test('getAddressFromPrivateKey', async t => {
     const seed = getSeedFromMnemonic({ mnemonic, network })
-    const private_key = getPrivateKeyFromSeed({ seed })
+    const privateKey = getPrivateKeyFromSeed({ seed })
     const address_seed = getAddressFromSeed({ seed, network })
-    const address_private = getAddressFromPrivateKey({ private_key, network })
+    const address_private = getAddressFromPrivateKey({ privateKey, network })
     t.is(address_seed, address_private)
     const address_seed2 = getAddressFromSeed({ seed, network, segwit: false })
     const address_private2 = getAddressFromPrivateKey({
-        private_key,
+        privateKey,
         network,
         segwit: false
     })
@@ -80,8 +80,8 @@ test('derivePath', async t => {
     const seed = getSeedFromMnemonic({ mnemonic, network })
     const seed_rerived = derivePath({ seed, path: "m/44'/0'/0'/0/25" })
     t.deepEqual(Object.keys(seed), Object.keys(seed_rerived))
-    const private_key = getPrivateKeyFromSeed({ seed: seed_rerived })
-    t.is(private_key, 'L2PUoVDh2hpKzfRGcbuQW9NHssEBbX7gEuWobWhzmqan2iKVhtcL')
+    const privateKey = getPrivateKeyFromSeed({ seed: seed_rerived })
+    t.is(privateKey, 'L2PUoVDh2hpKzfRGcbuQW9NHssEBbX7gEuWobWhzmqan2iKVhtcL')
 })
 
 test('deriveIndex', async t => {
@@ -89,10 +89,10 @@ test('deriveIndex', async t => {
     let seed1 = derivePath({ seed, path: "m/44'/0'/0'/0/25" })
     let seed2 = derivePath({ seed, path: "m/44'/0'/0'/0" })
     seed2 = deriveIndex({ seed: seed2, index: 25 })
-    let private_key1 = getPrivateKeyFromSeed({ seed: seed1 })
-    let private_key2 = getPrivateKeyFromSeed({ seed: seed2 })
-    t.is(private_key1, private_key2)
-    t.is(private_key1, 'L2PUoVDh2hpKzfRGcbuQW9NHssEBbX7gEuWobWhzmqan2iKVhtcL')
+    let privateKey1 = getPrivateKeyFromSeed({ seed: seed1 })
+    let privateKey2 = getPrivateKeyFromSeed({ seed: seed2 })
+    t.is(privateKey1, privateKey2)
+    t.is(privateKey1, 'L2PUoVDh2hpKzfRGcbuQW9NHssEBbX7gEuWobWhzmqan2iKVhtcL')
 })
 
 test('getExtendedPrivateKeyFromSeed', async t => {
@@ -101,11 +101,11 @@ test('getExtendedPrivateKeyFromSeed', async t => {
     t.is(address1, '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb')
     let xprv = getExtendedPrivateKeyFromSeed({ seed })
     let seed_xprv = getSeedFromExtended({ extended: xprv })
-    let private_key = getPrivateKeyFromSeed({ seed: seed_xprv })
+    let privateKey = getPrivateKeyFromSeed({ seed: seed_xprv })
     let address2 = getAddressFromSeed({ seed: seed_xprv, network })
     t.is(typeof xprv, 'string')
     t.deepEqual(seed, seed_xprv)
-    t.is(private_key, 'Ky2bHBM83SHKgFEPokMo7LGZLeR9bUCpdw2LyudmAZbZC4QU8CpE')
+    t.is(privateKey, 'Ky2bHBM83SHKgFEPokMo7LGZLeR9bUCpdw2LyudmAZbZC4QU8CpE')
     t.is(address1, '38h7N7oPLvu2mWGuXGX3GZBEG2yFG41THb')
     t.is(address1, address2)
 })
