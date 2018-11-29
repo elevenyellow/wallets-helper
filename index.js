@@ -1,21 +1,6 @@
 const crypto = require('crypto')
 const Bitcoin = require('bitcoinjs-lib')
 const bip39 = require('bip39crypto')
-const BigNumber = require('bignumber.js')
-
-const requires = {}
-
-function getCoin({ symbol }) {
-    symbol = symbol.toUpperCase()
-    if (!requires.hasOwnProperty(symbol)) {
-        try {
-            requires[symbol] = require(`./${symbol}`)
-        } catch (e) {
-            throw `Symbol ${symbol} not found`
-        }
-    }
-    return requires[symbol]
-}
 
 function getRandomMnemonic({ words } = { words: 24 }) {
     const strength = ((words / 3) * 32) / 8
@@ -48,8 +33,27 @@ function getSeedFromExtended({ extended, network }) {
     return Bitcoin.HDNode.fromBase58(extended, network)
 }
 
+function getRedeemScript(ecpair) {
+    const pubKey = ecpair.getPublicKeyBuffer()
+    const pubKeyHash = Bitcoin.crypto.hash160(pubKey)
+    return Bitcoin.script.witnessPubKeyHash.output.encode(pubKeyHash)
+}
+
+function generatePath({ purpose, coin, account, change, index }) {
+    let path = `m/${purpose}'`
+    const toadd = []
+    if (coin !== undefined) toadd[0] = coin
+    if (account !== undefined) toadd[1] = account
+    if (change !== undefined) toadd[2] = change
+    if (index !== undefined) toadd[3] = index
+    for (let i = 0; i < toadd.length; i++) {
+        path += `/${toadd[i] || 0}`
+        if (i < 2) path += `'`
+    }
+    return path
+}
+
 module.exports = {
-    getCoin,
     getRandomMnemonic,
     getSeedFromMnemonic,
     derivePath,
@@ -57,7 +61,9 @@ module.exports = {
     getExtendedPublicKeyFromSeed,
     getExtendedPrivateKeyFromSeed,
     getSeedFromExtended,
-    validateMnemonic: bip39.validateMnemonic
+    validateMnemonic: bip39.validateMnemonic,
+    getRedeemScript,
+    generatePath
 }
 
 // // Private
